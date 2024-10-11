@@ -42,6 +42,28 @@ const Footer = () => {
   ];
 
   return (
+    <>
+    
+    <section className="bg-blue-100 py-8 ">
+        <div className="w-[95%] m-auto px-4">
+          <h2 className="text-2xl font-semibold mb-4">Join Our List, Get 10% Off</h2>
+          <p className="mb-4 font-semibold">
+            Sign up for Zappos emails—new subscribers get 10% off a future order! Plus, get early access to
+            sales, coupons, and more. (One code per email address.)
+          </p>
+          <div className="flex space-x-4">
+            <input
+              type="email"
+              placeholder="Email Address"
+              className="border border-gray-300 p-2 rounded-md w-64"
+            />
+            <button className="bg-black text-white px-6 py-2 rounded-md">
+              Join the Party
+            </button>
+          </div>
+        </div>
+      </section>
+   
     <footer className="bg-white border-t border-gray-300 py-8 w-[95%] m-auto">
         
          <div className="flex space-x-6 my-10 text-black">
@@ -56,7 +78,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIdx) => (
                   <li key={linkIdx}>
-                    <a href="#" className="hover:underline hover:text-blue-600 text-[16px] text-black">{link}</a>
+                    <a href="#" className="hover:underline hover:text-blue-600 text-[15px] text-black">{link}</a>
                   </li>
                 ))}
               </ul>
@@ -80,6 +102,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };
 

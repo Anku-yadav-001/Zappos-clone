@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import womans from "../assets/womans.gif"
-import { tranding, autumn, inspiration, products, exclusive,promotions } from "../Data/data.js"
+import { tranding, autumn, inspiration, products, exclusive,promotions ,shopKut} from "../Data/data.js"
 import { ProductCard } from "../components/ProductCart.jsx"
 import { FaArrowRight } from "react-icons/fa";
 export function Home() {
@@ -148,10 +148,20 @@ export function Home() {
             </div>
 
             <div>
-      {/* Ways to Shop & Save Section */}
-      <section className="bg-gray-100 py-8">
+            <div className="w-[95%] m-auto flex justify-between space-x-4 my-6">
+                <div>
+                    <img src="https://m.media-amazon.com/images/G/01/Zappos/2024/Homepage/10.07/KUT-OCTOBER-NEW-ARRIVALS-658x916._FMwebp_.jpg" alt="" />
+                </div>
+                {shopKut.map((product) => (
+                    <div>
+                        <ProductCard key={product.id} product={product} />
+                    </div>
+                ))}
+            </div>
+
+      <section className="w-[95%] m-auto py-8">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-semibold mb-6">Ways to Shop & Save!</h2>
+          <h2 className="text-2xl font-semibold mb-2">Ways to Shop & Save!</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <img src="https://m.media-amazon.com/images/G/01/Zappos/HPVIP/HP-TILES-2-VIP-896x300._FMwebp_.png" alt="" />
             <img src="https://m.media-amazon.com/images/G/01/Zappos/HPVIP/HP-TILES-1-PRIME-896x300._FMwebp_.png" alt="" />
@@ -160,29 +170,9 @@ export function Home() {
         </div>
       </section>
 
-      {/* Join Our List Section */}
-      <section className="bg-blue-50 py-8">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-semibold mb-4">Join Our List, Get 10% Off</h2>
-          <p className="mb-4">
-            Sign up for Zappos emails—new subscribers get 10% off a future order! Plus, get early access to
-            sales, coupons, and more. (One code per email address.)
-          </p>
-          <div className="flex space-x-4">
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="border border-gray-300 p-2 rounded-md w-64"
-            />
-            <button className="bg-black text-white px-6 py-2 rounded-md">
-              Join the Party
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
 
-
+   
         </div>
     </>
 }
