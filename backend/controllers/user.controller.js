@@ -4,32 +4,34 @@ const userRoute = express.Router()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const blacklistModel = require("../models/blacklist.model")
-
-userRoute.post("/register",async(req,res)=>{
-    const {name,email,password} = req.body
+userRoute.post("/register", async (req, res) => {
+    const { name, email, password } = req.body;
     try {
-        const isUserPresent = await userModel.findOne({email})
-        if(isUserPresent){
-           return res.send("user already exists")
+        const isUserPresent = await userModel.findOne({ email });
+        if (isUserPresent) {
+            return res.status(409).json({ message: "User already exists" }); 
         }
-        const user = await userModel({
+
+        const hashedPassword = await bcrypt.hash(password, 10); 
+        if (!hashedPassword) {
+            return res.status(500).json({ message: "Failed to hash password" }); 
+        }
+
+        const user = new userModel({
             name,
             email,
-            password
-        })
-        await user.save()
-        res.json({
-            message:"user registered successfully",
-            status:201
-        })
+            password: hashedPassword,
+        });
+
+        await user.save();
+        res.status(201).json({ message: "User registered successfully" }); 
     } catch (error) {
-        res.json({
-            message:"failed to register",
-            status:400,
-            err:error.message
-        })
+        res.status(400).json({
+            message: "Failed to register",
+            err: error.message,
+        });
     }
-})
+});
 
 
 userRoute.post("/login",async(req,res)=>{

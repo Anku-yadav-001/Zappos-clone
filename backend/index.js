@@ -4,7 +4,9 @@ const connection = require("./dbconfig/db")
 const userRoute = require("./controllers/user.controller")
 const PORT = process.env.PORT
 const server = express()
+const cors = require("cors")
 
+server.use(cors())
 server.use(express.json())
 
 server.get("/",(req,res)=>{
