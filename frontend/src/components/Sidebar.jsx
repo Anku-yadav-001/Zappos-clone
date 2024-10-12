@@ -1,8 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link ,useNavigate} from "react-router-dom"
 
 export function SideBar() {
-
-    const { loginWithRedirect, logout, user, isAuthenticated, } = useAuth0();
+    const isAuthenticated = localStorage.getItem("isAuthenticated")
+    const navigate = useNavigate()
 
     return <>
         <h2 className="text-2xl font-bold mb-6">My Bag</h2>
@@ -24,7 +24,7 @@ export function SideBar() {
                     <li>Shop Shoes</li>
                     <li>Brand List</li>
                     </>:<>
-                        <li>Sign In </li>
+                        <li><Link to="/register">Register</Link></li>
                     <li>Home Page</li>
                     <li>Brand List</li>
                     <li>Contact Us</li>
@@ -36,7 +36,7 @@ export function SideBar() {
                 <div className="text-center">
                     <img src="https://www.zappos.com/marty-assets/empty-cart.aa012412a3668eb7151b6731c716a428.svg" alt="" />
                         <div className="space-x-4">
-                    {!isAuthenticated?<button className="bg-black text-white px-6 py-2 rounded-lg font-semibold mt-6">Sign In</button>:""}
+                    {!isAuthenticated?<button className="bg-black text-white px-6 py-2 rounded-lg font-semibold mt-6" onClick={()=>navigate("/register")}>Register</button>:""}
                        </div>
                 </div>
             </div>

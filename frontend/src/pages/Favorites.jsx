@@ -1,7 +1,10 @@
 import { HiDotsHorizontal } from "react-icons/hi";
+import { Navbar } from "../components/Navbar";
+import Footer from "../components/Footer";
 export function Favorites(){
 
     return <>
+    <Navbar/>
      <div className="w-[95%] m-auto">
             <div className="flex space-x-2 text-sm my-8">
             <p>Account Overview</p>
@@ -28,5 +31,6 @@ export function Favorites(){
                     </div>
             </div>
      </div>
+     <Footer/>
     </>
 }

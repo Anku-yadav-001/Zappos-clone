@@ -3,6 +3,8 @@ import womans from "../assets/womans.gif"
 import { tranding, autumn, inspiration, products, exclusive,promotions ,shopKut} from "../Data/data.js"
 import { ProductCard } from "../components/ProductCart.jsx"
 import { FaArrowRight } from "react-icons/fa";
+import { Navbar } from "../components/Navbar.jsx";
+import Footer from "../components/Footer.jsx";
 export function Home() {
 
     const scrollRef = useRef(null);
@@ -24,6 +26,7 @@ export function Home() {
     };
 
     return <>
+    <Navbar/>
         <div className="">
             <div className="w-[94%] py-4 m-auto">
                 <img src={womans} alt="" />
@@ -171,8 +174,7 @@ export function Home() {
       </section>
 
     </div>
-
-   
         </div>
+        <Footer/>
     </>
 }

@@ -4,13 +4,13 @@ import { PiSignOutBold } from "react-icons/pi";
 import 
 ZapposLogo from "../assets/Zappos-25-Years-Logo-Site.svg"
 import { SideBar } from './Sidebar';
-import {useAuth0} from "@auth0/auth0-react"
 import axios from "axios"
 import { MapList } from './MapList';
 import { Link } from 'react-router-dom';
-
+import { toast } from "react-toastify";
 export const Navbar = () => {
-  const {loginWithRedirect, isAuthenticated,user,logout} = useAuth0()
+  const isAuthenticated = localStorage.getItem("isAuthenticated")
+  const username = localStorage.getItem("userName")
   const sliderTexts = [
     "Top Boots & Sneakers for Fall 2024. Shop Our Favorites",
     "The Best Fall Deals of the Year!",
@@ -21,6 +21,7 @@ export const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [toggleMoreDetails,setMoreDetailsToggle] = useState(false)
   const [toggleHelpDesk,setToggleHelpDesk] = useState(false)
+  const [toogleSignin, setToggleSignin] = useState(false)
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -47,7 +48,7 @@ export const Navbar = () => {
  
 
   useEffect(() => {
-  console.log(user )
+    
     const interval = setInterval(() => {
       handleNextSlide();
     }, 3000);
@@ -55,9 +56,27 @@ export const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
-  function handleUserAuth(){
-    loginWithRedirect()
-  }
+
+  const handleLogout = async () => {
+    try {
+        const token = localStorage.getItem("accessToken"); 
+        const response = await axios.post("http://localhost:8080/auth/logout", {}, {
+            headers: {
+                Authorization: `Bearer ${token}` 
+            }
+        });
+        localStorage.removeItem("accessToken"); 
+        localStorage.removeItem("userName");
+        localStorage.removeItem("isAuthenticated")
+        toast.success(response.data.message); 
+
+       setTimeout(()=>{
+        navigate("/login")
+       },2000)
+    } catch (error) {
+        toast.error("Failed to logout"); 
+    }
+};
 
   return (
     <header className="w-full">
@@ -127,20 +146,26 @@ export const Navbar = () => {
               {
                 isAuthenticated?<>
 <button className='flex items-center space-x-1 border-2 rounded-full px-2 py-1 border-black' onClick={() => setMoreDetailsToggle(prev => !prev)}>
-  <FaUserCircle size={24} onClick={handleUserAuth}/>
-  <span>{user.nickname}</span>
+  <FaUserCircle size={24}/>
+  <span>{username}</span>
 </button>
                     <div className={`absolute right-20 mt-2 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toggleMoreDetails?"hidden":""}`}>
                      <ul className='space-y-4 text-sm'>
                       <li>Signup for Zappos VIP</li>
                       <li>Account Overview</li>
                       <li>View Order/Return</li>
-                      <li className='flex items-center border border-gray-400 px-2 py-1 rounded-md justify-between' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}><span>Sign Out</span> <PiSignOutBold size={20}/></li>
+                      <li className='flex items-center border border-gray-400 px-2 py-1 rounded-md justify-between' onClick={handleLogout}><span>Sign Out</span> <PiSignOutBold size={20}/></li>
                      </ul>
                     </div>
                     </>
-                :(
-                <FaUserCircle size={24} onClick={handleUserAuth}/>
+                :(<>
+                <FaUserCircle size={24} onClick={()=>setToggleSignin(prev=>!prev)}/>
+                <div className={`absolute  right-12 mt-2 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toogleSignin?"hidden":""}`}>
+                     <ul className='space-y-4 text-sm'>
+                          <li><Link to="/register">Create Zappos Account</Link></li>
+                     </ul>
+                    </div>
+                </>
               )
               }
             </a>
@@ -324,8 +349,8 @@ export const Navbar = () => {
 
             <div className={`absolute  right-12 mt-10 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toggleHelpDesk?"hidden":""}`}>
                      <ul className='space-y-4 text-sm'>
-                      <Link to="/return-trans-options"><li>Return Options</li></Link>
-                      <li>Get Help</li>
+                     <li> <Link to="/return-trans-options">Return Options</Link></li>
+                      <li><Link to="/customer-service">Get Help</Link></li>
                       <li>FAQs</li>
                       <li>Give Us Feedback</li>
                      </ul>
