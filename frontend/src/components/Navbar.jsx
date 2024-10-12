@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserCircle, FaShoppingCart, FaChevronLeft, FaChevronRight,FaSearch,FaTimes, FaHeart } from 'react-icons/fa';
+import { FaUserCircle, FaShoppingCart, FaChevronLeft, FaChevronRight, FaSearch, FaTimes, FaHeart } from 'react-icons/fa';
 import { PiSignOutBold } from "react-icons/pi";
-import 
+import
 ZapposLogo from "../assets/Zappos-25-Years-Logo-Site.svg"
 import { SideBar } from './Sidebar';
 import axios from "axios"
@@ -19,8 +19,8 @@ export const Navbar = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeItem, setActiveItem] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [toggleMoreDetails,setMoreDetailsToggle] = useState(false)
-  const [toggleHelpDesk,setToggleHelpDesk] = useState(false)
+  const [toggleMoreDetails, setMoreDetailsToggle] = useState(false)
+  const [toggleHelpDesk, setToggleHelpDesk] = useState(false)
   const [toogleSignin, setToggleSignin] = useState(false)
 
   const toggleSidebar = () => {
@@ -35,7 +35,7 @@ export const Navbar = () => {
   ];
 
   const toggleDropdown = (item) => {
-    setActiveItem(activeItem === item ? null : item); 
+    setActiveItem(activeItem === item ? null : item);
   };
 
   const handleNextSlide = () => {
@@ -45,10 +45,10 @@ export const Navbar = () => {
   const handlePrevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + sliderTexts.length) % sliderTexts.length);
   };
- 
+
 
   useEffect(() => {
-    
+
     const interval = setInterval(() => {
       handleNextSlide();
     }, 3000);
@@ -59,24 +59,24 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-        const token = localStorage.getItem("accessToken"); 
-        const response = await axios.post("http://localhost:8080/auth/logout", {}, {
-            headers: {
-                Authorization: `Bearer ${token}` 
-            }
-        });
-        localStorage.removeItem("accessToken"); 
-        localStorage.removeItem("userName");
-        localStorage.removeItem("isAuthenticated")
-        toast.success(response.data.message); 
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post("http://localhost:8080/auth/logout", {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("isAuthenticated")
+      toast.success(response.data.message);
 
-       setTimeout(()=>{
+      setTimeout(() => {
         navigate("/login")
-       },2000)
+      }, 2000)
     } catch (error) {
-        toast.error("Failed to logout"); 
+      toast.error("Failed to logout");
     }
-};
+  };
 
   return (
     <header className="w-full">
@@ -106,273 +106,191 @@ export const Navbar = () => {
 
       <div className='flex justify-center'>
         <div className='w-[94%]'>
-      <div className="bg-white">
-        <div className="container mx-auto px-4 flex justify-between items-center py-4">
-          <div className='flex items-center space-x-6'>
-         
-          <div className="flex items-center">
-            <img
-              src={ZapposLogo}
-              alt="Zappos Logo"
-              className="h-16"
-            />
-          </div>
+          <div className="bg-white">
+            <div className="container mx-auto px-4 flex justify-between items-center py-4">
+              <div className='flex items-center space-x-6'>
 
-          <div className="w-full max-w-4xl mx-auto">
-      <div className="flex items-center border-2 border-black rounded-full overflow-hidden">
-        <span className="px-3 text-gray-400">
-          <FaSearch />
-        </span>
-       
-        <input
-          type="text"
-          placeholder="Search for shoes, clothes, etc."
-          className="flex-grow px-2 py-2 text-gray-600 focus:outline-none"
-        />
-       
-        <button className="bg-white px-5 py-2 text-black font-semibold border-l border-black rounded-r-full">
-          Search
-        </button>
-      </div>
-    </div>
-   
-    </div>
+                <div className="flex items-center">
+                  <img
+                    src={ZapposLogo}
+                    alt="Zappos Logo"
+                    className="h-16"
+                  />
+                </div>
 
-          <div className="flex items-center space-x-6">
-            {isAuthenticated?(<a href="#" className='text-gray-700'>
-           <Link to="/favorite"> <FaHeart size={24}/></Link>
-            </a>):""}
-            <a href="#" className="text-gray-700">
-              {
-                isAuthenticated?<>
-<button className='flex items-center space-x-1 border-2 rounded-full px-2 py-1 border-black' onClick={() => setMoreDetailsToggle(prev => !prev)}>
-  <FaUserCircle size={24}/>
-  <span>{username}</span>
-</button>
-                    <div className={`absolute right-20 mt-2 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toggleMoreDetails?"hidden":""}`}>
-                     <ul className='space-y-4 text-sm'>
-                      <li>Signup for Zappos VIP</li>
-                      <li>Account Overview</li>
-                      <li>View Order/Return</li>
-                      <li className='flex items-center border border-gray-400 px-2 py-1 rounded-md justify-between' onClick={handleLogout}><span>Sign Out</span> <PiSignOutBold size={20}/></li>
-                     </ul>
-                    </div>
+                <div className="w-full max-w-4xl mx-auto">
+                  <div className="flex items-center border-2 border-black rounded-full overflow-hidden">
+                    <span className="px-3 text-gray-400">
+                      <FaSearch />
+                    </span>
+
+                    <input
+                      type="text"
+                      placeholder="Search for shoes, clothes, etc."
+                      className="flex-grow px-2 py-2 text-gray-600 focus:outline-none"
+                    />
+
+                    <button className="bg-white px-5 py-2 text-black font-semibold border-l border-black rounded-r-full">
+                      Search
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="flex items-center space-x-6">
+                {isAuthenticated ? (<a href="#" className='text-gray-700'>
+                  <Link to="/favorite"> <FaHeart size={24} /></Link>
+                </a>) : ""}
+                <a href="#" className="text-gray-700">
+                  {
+                    isAuthenticated ? <>
+                      <button className='flex items-center space-x-1 border-2 rounded-full px-2 py-1 border-black' onClick={() => setMoreDetailsToggle(prev => !prev)}>
+                        <FaUserCircle size={24} />
+                        <span>{username}</span>
+                      </button>
+                      <div className={`absolute right-20 mt-2 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toggleMoreDetails ? "hidden" : ""}`}>
+                        <ul className='space-y-4 text-sm'>
+                          <li>Signup for Zappos VIP</li>
+                          <li>Account Overview</li>
+                          <li>View Order/Return</li>
+                          <li className='flex items-center border border-gray-400 px-2 py-1 rounded-md justify-between' onClick={handleLogout}><span>Sign Out</span> <PiSignOutBold size={20} /></li>
+                        </ul>
+                      </div>
                     </>
-                :(<>
-                <FaUserCircle size={24} onClick={()=>setToggleSignin(prev=>!prev)}/>
-                <div className={`absolute  right-12 mt-2 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toogleSignin?"hidden":""}`}>
-                     <ul className='space-y-4 text-sm'>
-                          <li><Link to="/register">Create Zappos Account</Link></li>
-                     </ul>
-                    </div>
-                </>
-              )
-              }
-            </a>
-            <a href="#" className="text-gray-700">
-              <FaShoppingCart size={24} onClick={toggleSidebar}/>
-            </a>
-          </div>
-        </div>
-
-        <div className='flex justify-between px-4 py-2'>
-        <div className="relative">
-        <nav className="flex space-x-8 font-bold text-md items-center">
-  {['New', 'Women', 'Men', 'Kids', 'Collections', 'Brands', 'Sale', 'Gifts'].map((link) => (
-    <a
-      href="#"
-      className={`text-gray-700 hover:underline relative ${activeItem === link ? 'text-white border-2 border-black px-4 py-1 bg-black rounded-full' : ''}`}
-      key={link}
-      onClick={() => toggleDropdown(link)}
-    >
-      {link}
-      {activeItem === link && (
-        <div className="absolute left-0 top-full mt-2 w-[900px] p-6 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in">
-          <div className="grid grid-cols-4 gap-6">
-            {link === 'New' && (
-              <MapList title="New by Category" arr={menuItems}/>
-            )}
-
-            {link === 'Women' && (
-             <MapList title="Woman's"/>
-            )}
-
-            {link === 'Men' && (
-              <>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Men's Clothing</h4>
-                  <ul>
-                    {['T-shirts', 'Shirts', 'Jeans', 'Jackets'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
-            {link === 'Kids' && (
-              <>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Kids' Clothing</h4>
-                  <ul>
-                    {['Tops', 'Pants', 'Dresses', 'Outerwear'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
-            {link === 'Collections' && (
-              <>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Latest Collections</h4>
-                  <ul>
-                    {['Fall Collection', 'Winter Collection', 'Summer Sale'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
-            {link === 'Brands' && (
-              <>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Popular Brands</h4>
-                  <ul>
-                    {['Nike', 'Adidas', 'Puma', 'Reebok'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">New Brands</h4>
-                  <ul>
-                    {['Allbirds', 'Rothy\'s', 'Veja', 'Hoka One One'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
-            {link === 'Sale' && (
-              <>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Trending Sales</h4>
-                  <ul>
-                    {['Up to 50% off', 'Clearance', 'Limited Time Offers', 'Seasonal Sale'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Shop by Category</h4>
-                  <ul>
-                    {['Clothing', 'Shoes', 'Accessories', 'Home & Living'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
-            {link === 'Gifts' && (
-              <>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Gift Ideas</h4>
-                  <ul>
-                    {['For Him', 'For Her', 'For Kids', 'For Home'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-2 text-black">Shop by Occasion</h4>
-                  <ul>
-                    {['Birthday Gifts', 'Holiday Gifts', 'Anniversary Gifts', 'Wedding Gifts'].map((item) => (
-                      <li key={item} className="mb-1">
-                        <a href="#" className="text-gray-600 hover:text-black">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-    </a>
-  ))}
-</nav>
-
-    </div>
-
-            <div className='font-bold'>
-            <a href="#" className={`text-gray-700 ${toggleHelpDesk?"border border-black rounded-full bg-black text-gray-200 px-4 py-2 ":""}`} onClick={() => setToggleHelpDesk(prev => !prev)}>Help & Support</a>
+                      : (<>
+                        <FaUserCircle size={24} onClick={() => setToggleSignin(prev => !prev)} />
+                        <div className={`absolute  right-12 mt-2 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toogleSignin ? "hidden" : ""}`}>
+                          <ul className='space-y-4 text-sm'>
+                            <li><Link to="/register">Create Zappos Account</Link></li>
+                          </ul>
+                        </div>
+                      </>
+                      )
+                  }
+                </a>
+                <a href="#" className="text-gray-700">
+                  <FaShoppingCart size={24} onClick={toggleSidebar} />
+                </a>
+              </div>
             </div>
 
-            <div className={`absolute  right-12 mt-10 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toggleHelpDesk?"hidden":""}`}>
-                     <ul className='space-y-4 text-sm'>
-                     <li> <Link to="/return-trans-options">Return Options</Link></li>
-                      <li><Link to="/customer-service">Get Help</Link></li>
-                      <li>FAQs</li>
-                      <li>Give Us Feedback</li>
-                     </ul>
-                    </div>
+            <div className='flex justify-between px-4 py-2'>
+              <div className="relative">
+                <nav className="flex space-x-8 font-bold text-md items-center">
+                  {['New', 'Women', 'Men', 'Kids', 'Collections', 'Brands', 'Sale', 'Gifts'].map((link) => (
+                    <a
+                      href="#"
+                      className={`text-gray-700 hover:underline relative ${activeItem === link ? 'text-white border-2 border-black px-4 py-1 bg-black rounded-full' : ''}`}
+                      key={link}
+                      onClick={() => toggleDropdown(link)}
+                    >
+                      {link}
+                      {activeItem === link && (
+                        <div className="absolute left-0 top-full mt-2 w-[900px] p-6 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in">
+                          <div className="grid grid-cols-4 gap-6">
+                            {link === 'New' && (
+                              <MapList title="New by Category" arr={menuItems} />
+                            )}
 
-        </div>
-      </div>
+                            {link === 'Women' && (
+                              <MapList title="Woman's Clothing" arr={['Tops', 'Pants', 'Dresses', 'Outerwear']} />
+                            )}
 
-        <hr className='border-1 w-full mb-4'/>
-{/* 
+                            {link === 'Men' && (
+                              <>
+                                <MapList title={"Men's Clothing"} arr={['T-shirts', 'Shirts', 'Jeans', 'Jackets']} />
+                              </>
+                            )}
+
+                            {link === 'Kids' && (
+                              <>
+
+                                <MapList title="Kids' Clothing" arr={['Tops', 'Pants', 'Dresses', 'Outerwear']} />
+                              </>
+                            )}
+
+                            {link === 'Collections' && (
+                              <>
+
+                                <MapList title={"Latest Collections"} arr={['Fall Collection', 'Winter Collection', 'Summer Sale']} />
+                              </>
+                            )}
+
+                            {link === 'Brands' && (
+                              <>
+                                <div>
+                                  <MapList title="Popular Brands" arr={['Nike', 'Adidas', 'Puma', 'Reebok']} />
+                                </div>
+                                <div>
+
+                                  <MapList title="New Brands" arr={['Allbirds', 'Rothy\'s', 'Veja', 'Hoka One One']} />
+                                </div>
+                              </>
+                            )}
+
+                            {link === 'Sale' && (
+                              <>
+                                <div>
+                                  <MapList title="Trending Sales" arr={['Up to 50% off', 'Clearance', 'Limited Time Offers', 'Seasonal Sale']} />
+                                </div>
+                                <div>
+
+                                  <MapList title="Shop by Category" arr={['Clothing', 'Shoes', 'Accessories', 'Home & Living']} />
+                                </div>
+                              </>
+                            )}
+
+                            {link === 'Gifts' && (
+                              <>
+                                <div>
+
+                                  <MapList title="Gift Ideas" arr={['For Him', 'For Her', 'For Kids', 'For Home']} />
+                                </div>
+                                <div>
+
+                                  <MapList title="Shop by Occasion" arr={['Birthday Gifts', 'Holiday Gifts', 'Anniversary Gifts', 'Wedding Gifts']} />
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </a>
+                  ))}
+                </nav>
+
+              </div>
+
+              <div className='font-bold'>
+                <a href="#" className={`text-gray-700 ${toggleHelpDesk ? "border border-black rounded-full bg-black text-gray-200 px-4 py-2 " : ""}`} onClick={() => setToggleHelpDesk(prev => !prev)}>Help & Support</a>
+              </div>
+
+              <div className={`absolute  right-12 mt-10 w-[200px] p-4 bg-white border border-gray-200 shadow-lg rounded-lg z-50 animate-fade-in ${!toggleHelpDesk ? "hidden" : ""}`}>
+                <ul className='space-y-4 text-sm'>
+                  <li> <Link to="/return-trans-options">Return Options</Link></li>
+                  <li><Link to="/customer-service">Get Help</Link></li>
+                  <li>FAQs</li>
+                  <li>Give Us Feedback</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+          <hr className='border-1 w-full mb-4' />
+          {/* 
       <div className="bg-gray-400 text-center py-6 space-y-2">
         <h2 className="text-3xl font-semibold">The Big October Sale</h2>
         <p className="text-black text-xl">It’s an autumn dream come true. Explore HUGE deals up to 80% off!</p>
         <a href="#" className=" font-bold underline">Shop the Sale</a>
       </div> */}
 
-      </div>
+        </div>
       </div>
       <div
-        className={`fixed top-0 right-0 h-full w-[35%] bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 h-full w-[35%] bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <div className="p-4">
           <button
@@ -382,7 +300,7 @@ export const Navbar = () => {
             <FaTimes size={24} />
           </button>
 
-          <SideBar/>
+          <SideBar />
         </div>
       </div>
     </header>
