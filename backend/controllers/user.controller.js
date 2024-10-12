@@ -4,6 +4,7 @@ const userRoute = express.Router()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const blacklistModel = require("../models/blacklist.model")
+
 userRoute.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
     try {
