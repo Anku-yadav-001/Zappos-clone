@@ -35,7 +35,7 @@ export function Home() {
 
     const fetchTrendings = async () => {
         try {
-            const response = await axios.get( "http://localhost:8080/trend/all-trendings");
+            const response = await axios.get( "https://zappos-clone.onrender.com/trend/all-trendings");
             if (response.data.status === 200) {
                 setTrendings(response.data.trendings); 
             } 
@@ -48,7 +48,7 @@ export function Home() {
     const fetchAutumn = async () => {
         try {
 
-            const response = await axios.get( "http://localhost:8080/autumn/all-atumns");
+            const response = await axios.get( "https://zappos-clone.onrender.com/autumn/all-atumns");
             if (response.data.status === 200) {
                 setAutumn(response.data.autumn); 
             } 
@@ -60,7 +60,7 @@ export function Home() {
     };
     const fetchInspitation = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/inspiration/all-inspirations");
+            const response = await axios.get("https://zappos-clone.onrender.com/inspiration/all-inspirations");
             console.log(inspiration )
             if (response.data.status === 200) {
                 setInspiration(response.data.inspiration); 
@@ -75,7 +75,7 @@ export function Home() {
     const fetchProducts = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:8080/product/all-products",);
+                "https://zappos-clone.onrender.com/product/all-products",);
             if (response.data.status === 200) {
                 setProducts(response.data.products); 
             } 
@@ -88,7 +88,7 @@ export function Home() {
 
     const fetchShop = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/shop/all-shops");
+            const response = await axios.get("https://zappos-clone.onrender.com/shop/all-shops");
             if (response.data.status === 200) {
                 setShopKut(response.data.shops); 
             } 
@@ -102,7 +102,7 @@ export function Home() {
 
     const fetchExclusives = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/exclusive/all-exclusives");
+            const response = await axios.get("https://zappos-clone.onrender.com/exclusive/all-exclusives");
             if (response.data.status === 200) {
                 setExclusive(response.data.exclusives); 
             } 

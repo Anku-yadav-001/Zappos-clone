@@ -12,19 +12,19 @@ export function Login() {
         e.preventDefault(); 
 
         try {
-            const response = await axios.post("http://localhost:8080/auth/login", {
+            const response = await axios.post("https://zappos-clone.onrender.com/auth/login", {
                 email,
                 password,
             });
 
             localStorage.setItem("accessToken", response.data.accessToken);
             localStorage.setItem("userName", response.data.name);
-            localStorage.setItem("isAuthenticated",true)
+            localStorage.setItem("isAuthenticated", true);
 
             toast.success(response.data.message);
-            setTimeout(()=>{
-                navigate('/')
-            },4000)
+            setTimeout(() => {
+                navigate('/');
+            }, 4000);
         } catch (error) {
             if (error.response) {
                 const { status, data } = error.response;
@@ -43,12 +43,16 @@ export function Login() {
 
     return (
         <>
-            <div className="w-[30%] m-auto ">
-                <div className="flex justify-center p-4">
-                    <img src="https://m.media-amazon.com/images/G/01/zappos/melody/logo-blue-small._CB485919770_.svg" alt="" />
+            <div className="w-full max-w-md m-auto p-4">
+                <div className="flex justify-center">
+                    <img 
+                        src="https://m.media-amazon.com/images/G/01/zappos/melody/logo-blue-small._CB485919770_.svg" 
+                        alt="Zappos Logo" 
+                        className="h-12" 
+                    />
                 </div>
-                <div className="border border-gray-400 space-y-4 p-2 rounded-md">
-                    <h1 className="text-2xl font-semibold">Sign-In</h1>
+                <div className="border border-gray-400 space-y-4 p-6 rounded-md">
+                    <h1 className="text-2xl font-semibold text-center">Sign-In</h1>
                     <form onSubmit={handleLogin}> 
                         <div>
                             <label htmlFor="email" className="block text-md">Email</label>
@@ -74,7 +78,10 @@ export function Login() {
                                 required
                             />
                         </div>
-                        <button type="submit" className="w-full rounded-md bg-blue-900 text-white p-2 my-4">
+                        <button 
+                            type="submit" 
+                            className="w-full rounded-md bg-blue-900 text-white p-2 my-4 hover:bg-blue-700 transition"
+                        >
                             Sign In
                         </button>
                     </form>

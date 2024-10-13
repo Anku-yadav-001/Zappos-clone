@@ -1,4 +1,4 @@
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios"; 
 import { toast } from "react-toastify"; 
@@ -7,23 +7,22 @@ export function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault(); 
 
         try {
-            const response = await axios.post("http://localhost:8080/auth/register", {
+            const response = await axios.post("https://zappos-clone.onrender.com/auth/register", {
                 name,
                 email,
                 password,
             });
             toast.success(response.data.message);
-            setTimeout(()=>{
-                navigate('/login')
-            },4000)
+            setTimeout(() => {
+                navigate('/login');
+            }, 4000);
         } catch (error) {
-           
             if (error.response) {
                 const { status, data } = error.response;
                 if (status === 409) {
@@ -41,15 +40,16 @@ export function Register() {
 
     return (
         <>
-            <div className="w-[30%] m-auto">
-                <div className="flex justify-center p-4">
+            <div className="w-full max-w-md m-auto p-4">
+                <div className="flex justify-center">
                     <img
                         src="https://m.media-amazon.com/images/G/01/zappos/melody/logo-blue-small._CB485919770_.svg"
-                        alt=""
+                        alt="Zappos Logo"
+                        className="h-12"
                     />
                 </div>
-                <div className="border border-gray-300 space-y-4 p-2 rounded-md">
-                    <h1 className="text-2xl font-semibold">Create account</h1>
+                <div className="border border-gray-300 space-y-4 p-6 rounded-md">
+                    <h1 className="text-2xl font-semibold text-center">Create Account</h1>
                     <form onSubmit={handleRegister}>
                         <div>
                             <label htmlFor="name" className="block text-md">Your Name</label>
@@ -87,13 +87,19 @@ export function Register() {
                                 required
                             />
                         </div>
-                        <button type="submit" className="w-full rounded-md bg-blue-900 text-white p-2 my-4">
+                        <button 
+                            type="submit" 
+                            className="w-full rounded-md bg-blue-900 text-white p-2 my-4 hover:bg-blue-700 transition"
+                        >
                             Create Zappos Account
                         </button>
                     </form>
-                    <p className="text-sm">Need additional help? Don't worry! You can reach us via phone, text, or live chat. See here for contact details</p>
-                    <p className="text-sm">
-                        Already have an account? <span className="text-blue-700 font-bold"><Link to="/login">Login</Link></span>
+                    <p className="text-sm text-center">Need additional help? Don't worry! You can reach us via phone, text, or live chat. See here for contact details.</p>
+                    <p className="text-sm text-center">
+                        Already have an account? 
+                        <span className="text-blue-700 font-bold">
+                            <Link to="/login"> Login</Link>
+                        </span>
                     </p>
                 </div>
             </div>
