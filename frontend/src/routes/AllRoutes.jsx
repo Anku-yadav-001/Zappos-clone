@@ -8,7 +8,6 @@ import { Login } from "../pages/Login";
 
 
 export function AllRoutes(){
-
     return <>
     <Routes>
         <Route path="/" element={<Home/>}/>
