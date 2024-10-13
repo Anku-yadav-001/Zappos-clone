@@ -16,7 +16,7 @@ server.use(cors())
 server.use(express.json())
 
 server.get("/",(req,res)=>{
-    res.send("server is workign fine")
+    res.send("server is working fine")
 })
 
 server.use("/auth",userRoute)
