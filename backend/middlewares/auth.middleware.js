@@ -23,7 +23,6 @@ const checkAuth = async(req, res,next)=>{
                 status:401
             })
         }
-        console.log(decoded)
         req.user = decoded
         next()
     })
