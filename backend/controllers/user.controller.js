@@ -54,7 +54,6 @@ userRoute.post("/login",async(req,res)=>{
             })
         }
 
-        // const token = await jwt.sign({userId:isUserExist._id,email,role:isUserExist.role},JWT_SECRET_KEY,{expiresIn:'1h'})
         const accessToken =jwt.sign({userId:isUserExist._id,},process.env.JWT_SECRET_KEY,{expiresIn:'1h'})
         const refreshToken =jwt.sign({userId:isUserExist._id},process.env.JWT_SECRET_KEY,{expiresIn:'7d'})
         res.json({
